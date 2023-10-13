@@ -1,0 +1,62 @@
+program main
+import "fmt"
+func main (){
+	var hariAju, hariAmbil string 
+	var tglAju, tglAmbil int 
+	var blnAju, blnAmbil int
+
+	fmt.Println(“Pengajuan paspor:”)
+	fmt.Println(“Hari: “); fmt.Scan(&hariAju) 
+	fmt.Println(“Tanggal: “); fmt.Scan(&tglAju) 
+	fmt.Println(“Bulan: “); fmt.Scan(&blnAju)
+
+	//panggil subprogram untuk menentukan tanggal pengambilan } tglAmbil ← tglSelesai(tglAju, hariAju)
+	tglAmbil = tglSelesai(tglAju,hariAju)
+	//{ panggil subprogram untuk menentukan hari pengambilan } hariAmbil ← hariSelesai(hariAju)
+	tglAmbil = hariSelesai(hariAju)
+	//{ panggil subprogram untuk menentukan bulan pengambilan } updateBulan(tglAju, tglAmbil, blnAju, blnAmbil)
+	blnAmbil = updateBulan(tglAju,tglSelesai,blnAju,&blnAmbil)
+	fmt.Println(“Pengambilan paspor: “, hariAmbil, tglAmbil, “/”, blnAmbil)
+
+function hariSelesai(d : string) string {
+/* Mengembalikan hari pengambilan jika diajukan pada hari d.
+Contoh: d=Senin maka akan siap pada hari Rabu d=Jumat maka akan siap pada hari Selasa }*/
+    If d == “Senin” OR d == “Monday” {
+       Return “Rabu”
+    } Else if d == “Selasa” OR d == “Tuesday” {
+       Return “Kamis”
+    } Else if d == “Rabu” OR d == “Wednesday” {
+       Return “Jumat”
+    } Else if d == “Kamis” OR d == “Thursday” {
+       Return “Senin”
+    } Else { 
+       Return “Selasa”
+	}
+}
+function tglSelesai(d1 : integer, d2 : string) integer {
+/*{ Mengembalikan tanggal pengambilan jika diajukan pada tgl d1 hari d2 Contoh: d1=5 dan d2=Kamis maka siap pada tanggal 9
+d1=5 dan d2=Senin maka siap pada tanggal 7 }*/
+    var selesai int  
+	if d2 == “Kamis” OR d2 == “Jumat” {
+		selesai = d1 + (2*2)
+	} else { 
+		selesai = d1 + 2
+	}
+	if selesai > 30 {
+		selesai = selesai % 10
+	}
+	return selesai
+}
+procedure updateBulan(d1, d2 int,b1 int, b2 *int)
+/*{ I.S. d1 dan b1 adalah tanggal dan bulan pengajuan dan d2 adalah tanggal pengambilan
+F.S. b2 selesai dihitung
+Contoh: d1=5 dan d2=6, maka b2 sama dengan b1 d1=29 dan d2=1, maka b2 bulan setelah b1 }
+*/
+    If d1 > d2 {
+		*B2 = b1 + 1
+		If *b2 > 12 {
+          *B2 = 1 1 
+		}
+	}
+endprocedure
+}

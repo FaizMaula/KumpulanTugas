@@ -1,0 +1,16 @@
+package main
+import "fmt"
+type arr[2] int
+
+func main() {
+	var i int
+	arr[0] = 1
+	arr[1] = 2
+	arr[2] = 3
+	
+	for i <= 2 {
+		arr[i]++
+		i++
+	}
+	fmt.Print(arr)
+}
